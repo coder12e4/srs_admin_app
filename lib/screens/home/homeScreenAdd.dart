@@ -1,4 +1,3 @@
-import 'package:ecommerce_admin/authentication/auth.dart';
 import 'package:ecommerce_admin/commonWidgets/rflutter_dialog.dart';
 import 'package:ecommerce_admin/const/constants.dart';
 import 'package:ecommerce_admin/screens/home/order_Widgets/orderScreen.dart';
@@ -9,10 +8,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreenAddProduct extends StatelessWidget {
   const HomeScreenAddProduct({super.key});
-
  
   @override
   Widget build(BuildContext context) {
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(

@@ -81,16 +81,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       passwordController.text ==
                           confirmPasswordController.text) {
                     _formkey.currentState!.save();
-                    await performRegister().then(
-                        (value) => Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => LoginScreen(),
-                            )));
-                    final snackBar = SnackBar(
-                      content: Text(authentication.msg.string),
-                      duration: Duration(seconds: 5),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    log('key pressed');
+
+                    try {
+                      await performRegister(); // Wait for the registration process
+                      final snackBar = SnackBar(
+                        backgroundColor: Colors.green,
+                        animation: AlwaysStoppedAnimation(2),
+
+                        shape: BeveledRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        content:
+                            Text(authentication.msg.value), // Use .value here
+                        duration: Duration(seconds: 2),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                      // After showing the snackbar, navigate to the login screen
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const LoginScreen(),
+                      ));
+
+                      log('key pressed');
+                    } catch (e) {
+                      // Handle any exceptions that occur during registration
+                      log('Registration error: $e');
+                    }
                   }
                 },
                 style: ElevatedButton.styleFrom(

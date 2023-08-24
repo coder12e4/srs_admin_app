@@ -2,6 +2,7 @@ import 'package:ecommerce_admin/authentication/authapip_service.dart';
 import 'package:ecommerce_admin/authentication/widget_Tree.dart';
 import 'package:ecommerce_admin/const/constants.dart';
 import 'package:ecommerce_admin/firebase_options.dart';
+import 'package:ecommerce_admin/getx_manager/sharedpreference_getx.dart';
 import 'package:ecommerce_admin/screens/signIn/signInScreen.dart';
 import 'package:ecommerce_admin/state_management/add_equipmenmt.dart';
 import 'package:ecommerce_admin/state_management/add_outfits.dart';
@@ -17,6 +18,12 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await Get.putAsync(() async {
+    final service = SharedPrefManager();
+    await service.init();
+    return service;
+  });
+ 
   Get.put(Authentication());
   runApp(const MyApp());
 }
