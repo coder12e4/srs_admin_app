@@ -13,39 +13,23 @@ class ProductScreen extends StatelessWidget {
   @override
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const CategoryNavScreen(),
-            ));
-          },
-          child: const Icon(Icons.add),
-        ),
-        body: Column(
-          children: [
-            SizedBox(
-              height: 180.h,
-              width: MediaQuery.of(context).size.width / 1.2,
-              child: TabBar(
-                labelColor: Colors.black,
-                indicatorColor: darkShades,
-                tabs: const [
-                  Tab(
-                    text: 'Equipments',
-                  ),
-                  Tab(
-                    text: 'Outfits',
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 122.h,
-            ),
-            SizedBox(
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const CategoryNavScreen(),
+          ));
+        },
+        child: const Icon(Icons.add),
+      ),
+      body: Column(
+        children: [
+          SizedBox(
+            height: 122.h,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 28.0),
+            child: SizedBox(
               width: 900.w,
               height: 122.h,
               child: CupertinoSearchTextField(
@@ -53,14 +37,14 @@ class ProductScreen extends StatelessWidget {
                 suffixIcon: const Icon(CupertinoIcons.xmark_circle_fill),
               ),
             ),
-            SizedBox(
-              height: 80.h,
-            ),
-            Expanded(
-                child:
-                    TabBarView(children: [ProductCard(), ProductOutfitsView()]))
-          ],
-        ),
+          ),
+          SizedBox(
+            height: 80.h,
+          ),
+          Expanded(
+            child: ProductCard(),
+          )
+        ],
       ),
     );
   }

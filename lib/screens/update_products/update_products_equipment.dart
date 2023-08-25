@@ -7,21 +7,25 @@ import 'package:ecommerce_admin/commonWidgets/customAppbarWidget.dart';
 import 'package:ecommerce_admin/commonWidgets/elevatedButton.dart';
 import 'package:ecommerce_admin/commonWidgets/textField.dart';
 import 'package:ecommerce_admin/const/constants.dart';
+import 'package:ecommerce_admin/getx_manager/api_getx.dart';
 import 'package:ecommerce_admin/models/addingToFirebase.dart';
+import 'package:ecommerce_admin/models/allproducts_data_model.dart';
 import 'package:ecommerce_admin/screens/home/homeScreenAdd.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 // ignore: must_be_immutable
 class UpdateEquipmentScreen extends StatefulWidget {
   UpdateEquipmentScreen({super.key, required this.snap});
-  DocumentSnapshot snap;
+  ProductsDetails snap;
   @override
   State<UpdateEquipmentScreen> createState() => _UpdateEquipmentScreenState();
 }
 
+final ApiServices _apiServices = Get.find();
 String? imagePath;
 List imagePathList = [];
 
@@ -29,13 +33,13 @@ class _UpdateEquipmentScreenState extends State<UpdateEquipmentScreen> {
   List<String> selectedChoices = [];
 
   late final productNameController =
-      TextEditingController(text: widget.snap['Product Name']);
+      TextEditingController(text: widget.snap.name);
   late final quantityController =
-      TextEditingController(text: widget.snap['Quantity']);
+      TextEditingController(text: widget.snap.company);
   late final priceController =
-      TextEditingController(text: widget.snap['Price']);
+      TextEditingController(text: widget.snap.price.toString());
   late final descriptionController =
-      TextEditingController(text: widget.snap['Description']);
+      TextEditingController(text: widget.snap.description);
   List<String> choices = [
     'Uk 6',
     'UK 7',
@@ -73,7 +77,7 @@ class _UpdateEquipmentScreenState extends State<UpdateEquipmentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    imagePathList = widget.snap['Image'];
+    // imagePathList = widget.snap.image;
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -99,12 +103,11 @@ class _UpdateEquipmentScreenState extends State<UpdateEquipmentScreen> {
                           child: ClipRRect(
                               child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: widget.snap['Image'].length,
+                                  itemCount: 1,
                                   itemBuilder: (context, index) {
                                     log(index.toString());
 
-                                    return Image.network(
-                                        widget.snap['Image'][index]);
+                                    return Image.network(widget.snap.image);
                                   })
                               //  imagePathList == null
                               //     ? Image.asset("asset/default/DefaultImages.png"):
@@ -200,19 +203,27 @@ class _UpdateEquipmentScreenState extends State<UpdateEquipmentScreen> {
             ElevatedButtonWidget(
               title: "Update Product",
               action: () {
-                if (updateImage.isEmpty) {
-                  updateImage = (widget.snap['Image']);
-                }
+                // if (updateImage.isEmpty) {
+                //   updateImage = (widget.snap.image);
+                // }
+                log(widget.snap.id);
+                _apiServices
+                    .updateProduct(
+                      widget.snap.id,
+                      productNameController.text,
+                      descriptionController.text,
+                      'office',
+                      quantityController.text,
+                      priceController.text,
+                    )
+                    .then((value) =>
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => HomeScreenAddProduct(),
+                        )));
 
-                updateProduct(
-                  widget.snap.id,
-                );
-                updateImage.clear();
-                Navigator.of(context).pushReplacement(
-                  CupertinoPageRoute(
-                    builder: (context) => const HomeScreenAddProduct(),
-                  ),
-                );
+                // updateProduct(
+                //   widget.snap.id,
+                // );
               },
             ),
             SizedBox(

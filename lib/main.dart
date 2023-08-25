@@ -2,6 +2,7 @@ import 'package:ecommerce_admin/authentication/authapip_service.dart';
 import 'package:ecommerce_admin/authentication/widget_Tree.dart';
 import 'package:ecommerce_admin/const/constants.dart';
 import 'package:ecommerce_admin/firebase_options.dart';
+import 'package:ecommerce_admin/getx_manager/api_getx.dart';
 import 'package:ecommerce_admin/getx_manager/sharedpreference_getx.dart';
 import 'package:ecommerce_admin/screens/signIn/signInScreen.dart';
 import 'package:ecommerce_admin/state_management/add_equipmenmt.dart';
@@ -23,8 +24,9 @@ Future<void> main() async {
     await service.init();
     return service;
   });
- 
+
   Get.put(Authentication());
+  Get.put(ApiServices());
   runApp(const MyApp());
 }
 
@@ -51,7 +53,7 @@ class MyApp extends StatelessWidget {
               ),
               floatingActionButtonTheme:
                   FloatingActionButtonThemeData(backgroundColor: darkShades)),
-          home: const LoginScreen(),
+          home: const WidgetTree(),
         ),
       ),
       designSize: const Size(1080, 2340),

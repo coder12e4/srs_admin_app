@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefManager extends GetxService {
-   SharedPreferences? _prefs;
+  SharedPreferences? _prefs;
 
   Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
@@ -13,7 +13,10 @@ class SharedPrefManager extends GetxService {
   }
 
   String getStringValue(String key) {
-    
     return _prefs!.getString(key) ?? '';
+  }
+
+  Future<void> removeValue(String key) async {
+    await _prefs!.remove(key);
   }
 }

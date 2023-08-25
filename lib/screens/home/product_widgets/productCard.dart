@@ -1,10 +1,13 @@
 // import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce_admin/authentication/widget_Tree.dart';
 import 'package:ecommerce_admin/commonWidgets/rflutter_dialog.dart';
+import 'package:ecommerce_admin/getx_manager/api_getx.dart';
 import 'package:ecommerce_admin/screens/update_products/update_products_equipment.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../const/constants.dart';
@@ -14,6 +17,7 @@ class ProductCard extends StatelessWidget {
   ProductCard({
     super.key,
   });
+  final ApiServices _apiServices = Get.find();
 
   final CollectionReference equipment =
       FirebaseFirestore.instance.collection('Equipment Adding');
@@ -24,21 +28,20 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: equipment.snapshots(),
-        builder: (context, AsyncSnapshot snapshot) {
+    return FutureBuilder(
+        future: _apiServices.getAllPublicProduct(),
+        builder: (context, snapshot) {
           if (snapshot.hasData) {
+            final productList = snapshot.data;
             return ListView.builder(
-              itemCount: snapshot.data.docs.length,
+              itemCount: productList!.length,
               itemBuilder: (context, index) {
-                final DocumentSnapshot equipmentSnapshot =
-                    snapshot.data.docs[index];
                 return InkWell(
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) =>
-                            UpdateEquipmentScreen(snap: equipmentSnapshot),
+                            UpdateEquipmentScreen(snap: productList[index]),
                       ),
                     );
                   },
@@ -60,18 +63,18 @@ class ProductCard extends StatelessWidget {
                           width: 200.w,
                           child: ClipRRect(
                             child: Image.network(
-                              equipmentSnapshot['Image'][0],
+                              productList[index].image,
                               fit: BoxFit.cover,
                             ),
                           ),
                         ),
                         SizedBox(
                             height: 200.h,
-                            width: 500.w,
+                            width: 400.w,
                             child: Padding(
-                              padding: EdgeInsets.only(top:30.w,left: 50.w),
+                              padding: EdgeInsets.only(top: 30.w, left: 40.w),
                               child: Text(
-                                equipmentSnapshot['Product Name'],
+                                productList[index].name,
                                 overflow: TextOverflow.ellipsis,
                                 style: GoogleFonts.inter(
                                     fontWeight: FontWeight.w500),
@@ -84,26 +87,31 @@ class ProductCard extends StatelessWidget {
                             )),
                         Row(
                           children: [
-                            Text(equipmentSnapshot['Quantity']),
+                            Text(productList[index].price.toString(),
+                                overflow: TextOverflow.ellipsis),
                             IconButton(
-                                onPressed: () {
-                                  deleteOnAlert(
-                                    context,equipmentSnapshot,equipment
-                                  );
+                                onPressed: () async {
+                                  await deleteOnAlert(
+                                      context,
+                                      productList[index].id,
+                                      productList[index].name);
+
+                                  // _apiServices
+                                  //     .deletProduct(productList[index].id);
                                 },
                                 icon: const Icon(Icons.delete))
                           ],
                         ),
                       ],
                     ),
-                   
                   ),
-                 
                 );
               },
             );
           }
-          return Container();
+          return Center(
+            child: CircularProgressIndicator(),
+          );
         });
   }
 }

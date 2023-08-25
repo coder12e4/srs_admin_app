@@ -1,18 +1,15 @@
 import 'dart:developer';
-
 import 'package:ecommerce_admin/authentication/authapip_service.dart';
 import 'package:ecommerce_admin/commonWidgets/loginTextForm.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../const/constants.dart';
 import '../signIn/signInScreen.dart';
 
 class SignUpScreen extends StatefulWidget {
-  SignUpScreen({super.key});
+  const SignUpScreen({super.key});
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -86,13 +83,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       await performRegister(); // Wait for the registration process
                       final snackBar = SnackBar(
                         backgroundColor: Colors.green,
-                        animation: AlwaysStoppedAnimation(2),
+                        animation: const AlwaysStoppedAnimation(2),
 
                         shape: BeveledRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
                         content:
                             Text(authentication.msg.value), // Use .value here
-                        duration: Duration(seconds: 2),
+                        duration: const Duration(seconds: 2),
                       );
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
