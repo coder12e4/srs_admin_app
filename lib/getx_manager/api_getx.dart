@@ -87,7 +87,7 @@ class ApiServices extends GetxService {
       final decodedData = jsonDecode(response.body);
       if (decodedData['msg'] == "Product deleted!!!") {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => WidgetTree(),
+          builder: (context) => const WidgetTree(),
         ));
       }
       log(response.statusCode.toString());

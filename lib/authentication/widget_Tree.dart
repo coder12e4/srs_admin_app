@@ -1,4 +1,3 @@
-import 'package:ecommerce_admin/authentication/auth.dart';
 import 'package:ecommerce_admin/getx_manager/sharedpreference_getx.dart';
 import 'package:ecommerce_admin/screens/home/homeScreenAdd.dart';
 import 'package:ecommerce_admin/screens/signIn/signInScreen.dart';
