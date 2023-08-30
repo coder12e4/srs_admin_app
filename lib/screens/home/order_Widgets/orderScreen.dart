@@ -1,12 +1,15 @@
+import 'package:ecommerce_admin/const/api_url.dart';
+import 'package:ecommerce_admin/getx_manager/api_getx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import 'orderWidget.dart';
 
 class OrderScreen extends StatelessWidget {
-  const OrderScreen({super.key});
-
+   OrderScreen({super.key});
+ final ApiServices _apiServices = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,18 +18,18 @@ class OrderScreen extends StatelessWidget {
           SizedBox(
             height: 110.h,
           ),
-          Expanded(
-              child: ListView.builder(
-                itemCount: 10,
-            itemBuilder: (context, index){
-              if(index%2==0){
-              return const OrderCardWidget(color: Colors.green, status: "Delivered");
-              }else{
-                return OrderCardWidget(color: Colors.blue.shade900, status: "Shipped");
-              }
-            }
-                
-          ))
+          FutureBuilder(
+            future: _apiServices.getAllPublicProduct(getAllOrderUrl),
+            builder: (context, snapshot) {
+              return Expanded(
+                  child: ListView.builder(
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return const OrderCardWidget(
+                            color: Colors.green, status: "Delivered");
+                      }));
+            },
+          )
         ],
       ),
     );

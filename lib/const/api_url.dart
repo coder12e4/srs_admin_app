@@ -4,3 +4,4 @@ const loginUrl = '/auth/login';
 const getAllProducts = '/product/getAll';
 const updateProductUrl = '/product/update';
 const deleteProductUrl = '/product/delete';
+const getAllOrderUrl = '/order/getAll';

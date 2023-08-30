@@ -11,9 +11,10 @@ import 'package:http/http.dart' as http;
 
 class ApiServices extends GetxService {
   final SharedPrefManager _sharedPrefManager = Get.find();
-  Future<List<ProductsDetails>> getAllPublicProduct() async {
+
+  Future<List<ProductsDetails>> getAllPublicProduct( url) async {
     List<ProductsDetails> allProductsList = [];
-    const allProductUrl = baseUrl + getAllProducts;
+    final allProductUrl = baseUrl + url;
     final client = http.Client();
 
     try {

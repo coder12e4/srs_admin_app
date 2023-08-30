@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_admin/authentication/widget_Tree.dart';
 import 'package:ecommerce_admin/commonWidgets/rflutter_dialog.dart';
+import 'package:ecommerce_admin/const/api_url.dart';
 import 'package:ecommerce_admin/getx_manager/api_getx.dart';
 import 'package:ecommerce_admin/screens/update_products/update_products_equipment.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,7 +30,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: _apiServices.getAllPublicProduct(),
+        future: _apiServices.getAllPublicProduct(getAllProducts),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final productList = snapshot.data;
