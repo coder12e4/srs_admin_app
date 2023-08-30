@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ecommerce_admin/const/api_url.dart';
 import 'package:ecommerce_admin/getx_manager/api_getx.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,8 +10,8 @@ import 'package:get/get.dart';
 import 'orderWidget.dart';
 
 class OrderScreen extends StatelessWidget {
-   OrderScreen({super.key});
- final ApiServices _apiServices = Get.find();
+  OrderScreen({super.key});
+  final ApiServices _apiServices = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,15 +21,33 @@ class OrderScreen extends StatelessWidget {
             height: 110.h,
           ),
           FutureBuilder(
-            future: _apiServices.getAllPublicProduct(getAllOrderUrl),
+            future: _apiServices.getAllOrders(getAllOrderUrl),
             builder: (context, snapshot) {
-              return Expanded(
-                  child: ListView.builder(
-                      itemCount: 10,
-                      itemBuilder: (context, index) {
-                        return const OrderCardWidget(
-                            color: Colors.green, status: "Delivered");
-                      }));
+              if (snapshot.hasData) {
+                final orderList = snapshot.data;
+                // log(orderList![0].id.toString());
+                if (orderList!.isNotEmpty) {
+                  return Expanded(
+                      child: ListView.builder(
+                          itemCount: orderList.length,
+                          itemBuilder: (context, index) {
+                            log(orderList.length.toString());
+                            return OrderCardWidget(
+                              color: Colors.green,
+                              status: "Delivered",
+                              orderData: orderList[index],
+                            );
+                          }));
+                } else {
+                  return Center(
+                    child: Text('No Data'),
+                  );
+                }
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
             },
           )
         ],

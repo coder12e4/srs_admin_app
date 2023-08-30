@@ -11,7 +11,6 @@ class ProductScreen extends StatelessWidget {
   const ProductScreen({super.key});
 
   @override
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(

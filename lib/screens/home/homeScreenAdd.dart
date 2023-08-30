@@ -62,8 +62,8 @@ class HomeScreenAddProduct extends StatelessWidget {
               ],
             ),
           ),
-          body: const TabBarView(children: [
-            ProductScreen(),
+          body:  TabBarView(children: [
+            const ProductScreen(),
             OrderScreen(),
           ])),
     );
