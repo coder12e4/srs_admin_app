@@ -43,25 +43,25 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             children: [
               SizedBox(
-                height: 100.h,
+                height: 300.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(height: 500.h),
                   Text(
-                    "Sign In",
+                    "SRS Admin",
                     style: GoogleFonts.raleway(
                         fontSize: 40, fontWeight: FontWeight.w800),
                   ),
                 ],
               ),
-              Image.asset(
-                'asset/loginImages/Login_Image-removebg-preview.png',
-                // width: 800.w,
-                // height: 600.h,
-                scale: 2.5,
-              ),
+              // Image.asset(
+              //   'asset/loginImages/Login_Image-removebg-preview.png',
+              //   // width: 800.w,
+              //   // height: 600.h,
+              //   scale: 2.5,
+              // ),
               kFormField100,
               LoginTextForm(
                   prefixIcon: Icons.email,
@@ -75,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 controller: _controllerPassword,
               ),
               _errorMessage(),
-              kFormField100,
+              kFormField50,
               ElevatedButton(
                 onPressed: () {
                   if (_formkey.currentState!.validate()) {
@@ -88,48 +88,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15))),
                 child: const Text(
-                  "Sign In",
+                  "Log In",
                   style: TextStyle(fontSize: 18),
                 ),
               ),
-              kFormField50,
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  height: 130.h,
-                  width: 850.w,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.black,
-                        blurRadius: 1.0,
-                        // offset: Offset(0, 10),
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 130.w,
-                      ),
-                      ClipOval(
-                          child: Image.asset(
-                        "asset/loginImages/google icon.png",
-                        width: 122.w,
-                      )),
-                      SizedBox(
-                        width: 29.w,
-                      ),
-                      const Text(
-                        "Sign In With Google",
-                        style: TextStyle(fontSize: 17, color: Colors.blue),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              // kFormField50,SS
               kFormField50,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:ecommerce_admin/const/api_url.dart';
 import 'package:ecommerce_admin/getx_manager/sharedpreference_getx.dart';
 import 'package:ecommerce_admin/screens/home/homeScreenAdd.dart';
@@ -31,12 +32,16 @@ class Authentication extends GetxService {
       if (decodedData['token'] != null) {
         _sharedPrefManager.setStringValue('token', decodedData['token']);
 
-        log(' SharedPref ${await _sharedPrefManager.getStringValue('token')}');
+        log(' SharedPref ${_sharedPrefManager.getStringValue('token')}');
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => const HomeScreenAddProduct(),
         ));
         log('login sucssecfull');
       } else {
+        AnimatedSnackBar.material(
+          "Username or password is in correct",
+          type: AnimatedSnackBarType.warning,
+        ).show(context);
         log('login failed');
       }
 

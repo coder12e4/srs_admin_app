@@ -39,12 +39,12 @@ class OrderScreen extends StatelessWidget {
                             );
                           }));
                 } else {
-                  return Center(
+                  return const Center(
                     child: Text('No Data'),
                   );
                 }
               } else {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }

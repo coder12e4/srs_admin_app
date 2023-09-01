@@ -21,119 +21,122 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formkey,
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(height: 800.h),
-                  Text(
-                    "Sign Up",
-                    style: GoogleFonts.raleway(
-                        fontSize: 40, fontWeight: FontWeight.w800),
-                  ),
-                ],
-              ),
-              LoginTextForm(
-                  prefixIcon: Icons.abc,
-                  hintText: "Name",
-                  controller: nameController),
-              kFormField30,
-              LoginTextForm(
-                  prefixIcon: Icons.email,
-                  hintText: "Email",
-                  controller: emailController),
-              kFormField30,
-              LoginTextForm(
-                  prefixIcon: Icons.password,
-                  hintText: "Password",
-                  controller: passwordController,
-                  passdot: true),
-              kFormField30,
-              LoginTextForm(
-                  prefixIcon: Icons.password,
-                  hintText: "Confirm Password",
-                  controller: confirmPasswordController,
-                  passdot: true),
-              kFormField30,
-              LoginTextForm(
-                  prefixIcon: Icons.mobile_friendly_rounded,
-                  hintText: "Mobile number",
-                  controller: mobileNumController,
-                  passdot: false),
-              kFormField30,
-              LoginTextForm(
-                  prefixIcon: Icons.date_range,
-                  hintText: "DOb : 2001-01-02",
-                  controller: dobController,
-                  passdot: false),
-              kFormField100,
-              ElevatedButton(
-                onPressed: () async {
-                  if (_formkey.currentState!.validate() &&
-                      passwordController.text ==
-                          confirmPasswordController.text) {
-                    _formkey.currentState!.save();
-
-                    try {
-                      await performRegister(); // Wait for the registration process
-                      final snackBar = SnackBar(
-                        backgroundColor: Colors.green,
-                        animation: const AlwaysStoppedAnimation(2),
-
-                        shape: BeveledRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        content:
-                            Text(authentication.msg.value), // Use .value here
-                        duration: const Duration(seconds: 2),
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-                      // After showing the snackbar, navigate to the login screen
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const LoginScreen(),
-                      ));
-
-                      log('key pressed');
-                    } catch (e) {
-                      // Handle any exceptions that occur during registration
-                      log('Registration error: $e');
-                    }
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                    minimumSize: Size(900.w, 130.h),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15))),
-                child: const Text(
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Form(
+            key: _formkey,
+            child: Column(
+              children: [
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                SizedBox(height: 200.h),
+                Text(
                   "Sign Up",
-                  style: TextStyle(fontSize: 18),
+                  style: GoogleFonts.raleway(
+                      fontSize: 40, fontWeight: FontWeight.w800),
                 ),
-              ),
-              kFormField50,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("Already have an account !"),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
+                kFormField100,
+                //   ],
+                // ),
+                LoginTextForm(
+                    prefixIcon: Icons.abc,
+                    hintText: "Name",
+                    controller: nameController),
+                kFormField30,
+                LoginTextForm(
+                    prefixIcon: Icons.email,
+                    hintText: "Email",
+                    controller: emailController),
+                kFormField30,
+                LoginTextForm(
+                    prefixIcon: Icons.password,
+                    hintText: "Password",
+                    controller: passwordController,
+                    passdot: true),
+                kFormField30,
+                LoginTextForm(
+                    prefixIcon: Icons.password,
+                    hintText: "Confirm Password",
+                    controller: confirmPasswordController,
+                    passdot: true),
+                kFormField30,
+                LoginTextForm(
+                    prefixIcon: Icons.mobile_friendly_rounded,
+                    hintText: "Mobile number",
+                    controller: mobileNumController,
+                    passdot: false),
+                kFormField30,
+                LoginTextForm(
+                    prefixIcon: Icons.date_range,
+                    hintText: "DOb : 2001-01-02",
+                    controller: dobController,
+                    passdot: false),
+                kFormField100,
+                ElevatedButton(
+                  onPressed: () async {
+                    if (_formkey.currentState!.validate() &&
+                        passwordController.text ==
+                            confirmPasswordController.text) {
+                      _formkey.currentState!.save();
+
+                      try {
+                        await performRegister(); // Wait for the registration process
+                        final snackBar = SnackBar(
+                          backgroundColor: Colors.green,
+                          animation: const AlwaysStoppedAnimation(2),
+
+                          shape: BeveledRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          content:
+                              Text(authentication.msg.value), // Use .value here
+                          duration: const Duration(seconds: 2),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                        // After showing the snackbar, navigate to the login screen
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) => const LoginScreen(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      "Login",
-                    ),
-                  )
-                ],
-              )
-            ],
+                        ));
+
+                        log('key pressed');
+                      } catch (e) {
+                        // Handle any exceptions that occur during registration
+                        log('Registration error: $e');
+                      }
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                      minimumSize: Size(900.w, 130.h),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15))),
+                  child: const Text(
+                    "Sign Up",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+                kFormField50,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Already have an account !"),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        "Login",
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

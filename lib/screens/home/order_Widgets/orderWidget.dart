@@ -22,12 +22,12 @@ class OrderCardWidget extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => OrderDetailsScreen(),
+            builder: (context) => const OrderDetailsScreen(),
           ),
         );
       },
       child: Container(
-        height: 200.h,
+        height: orderData.orderItems.length * 90 + 20.h,
         width: 1000.w,
         margin:
             EdgeInsets.only(left: 70.w, bottom: 50.w, right: 70.w, top: 20.w),
@@ -35,18 +35,84 @@ class OrderCardWidget extends StatelessWidget {
           color: greyShade,
           borderRadius: BorderRadius.circular(25.r),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+        child: Column(
           children: [
-            // SizedBox(width: 50.w,),
-            Text(
-              orderData.id,
-              style: GoogleFonts.nunito(
-                  fontSize: 50.sp, fontWeight: FontWeight.w600),
+            kFormField50,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                // SizedBox(
+                //   height: 50.h,
+                // ),
+                Text(
+                  orderData.id,
+                  style: GoogleFonts.nunito(
+                      fontSize: 50.sp, fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  orderData.status,
+                  style: TextStyle(color: color, fontWeight: FontWeight.bold),
+                )
+              ],
             ),
-            Text(
-              orderData.status,
-              style: TextStyle(color: color, fontWeight: FontWeight.bold),
+            kFormField30,
+            Expanded(
+              child: ListView.builder(
+                itemCount: orderData.orderItems.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      height: 250.h,
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 250.h,
+                            width: 250.w,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(
+                                      orderData.orderItems[index].image,
+                                    ))),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  orderData.orderItems[index].name.toString(),
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                ),
+                                kFormField10,
+                                Text(
+                                  orderData.orderItems[index].price.toString(),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                kFormField10,
+                                Text(
+                                  orderData.orderItems[index].quantity
+                                      .toString(),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
             )
           ],
         ),

@@ -8,10 +8,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreenAddProduct extends StatelessWidget {
   const HomeScreenAddProduct({super.key});
- 
+
   @override
   Widget build(BuildContext context) {
-
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -20,20 +19,14 @@ class HomeScreenAddProduct extends StatelessWidget {
             centerTitle: true,
             backgroundColor: Colors.white,
             title: Text(
-              "List of produuct",
+              "SRS Admin",
               style: GoogleFonts.anton(
                   fontWeight: FontWeight.w500,
                   fontSize: 70.sp,
                   color: darkShades),
             ),
-            leading: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.arrow_back_ios),
-              color: darkShades,
-            ),
             actions: [
               InkWell(
-            
                 onTap: () {
                   signOutDilogueBox(context);
                 },
@@ -46,7 +39,6 @@ class HomeScreenAddProduct extends StatelessWidget {
                             "asset/homeimages/smallprofile-removebg-preview.png")),
                   ),
                 ),
-                
               ),
             ],
             bottom: TabBar(
@@ -54,17 +46,17 @@ class HomeScreenAddProduct extends StatelessWidget {
               indicatorColor: darkShades,
               tabs: const [
                 Tab(
-                  text: 'Product',
+                  text: 'Order',
                 ),
                 Tab(
-                  text: 'Order',
+                  text: 'Product',
                 ),
               ],
             ),
           ),
-          body:  TabBarView(children: [
-            const ProductScreen(),
+          body: TabBarView(children: [
             OrderScreen(),
+            const ProductScreen(),
           ])),
     );
   }

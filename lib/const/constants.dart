@@ -11,6 +11,9 @@ final kFormField30 = SizedBox(
 final kFormField50 = SizedBox(
   height: 50.h,
 );
+final kFormField10 = SizedBox(
+  height: 10.h,
+);
 final kHeadingSpace30 = SizedBox(
   height: 30.h,
 );

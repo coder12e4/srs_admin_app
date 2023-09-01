@@ -30,7 +30,7 @@ class LoginTextForm extends StatelessWidget {
         },
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
+            borderRadius: BorderRadius.circular(15.0),
             borderSide: const BorderSide(
               color: Color(0xFF00B212D),
             ),
@@ -42,7 +42,7 @@ class LoginTextForm extends StatelessWidget {
           hintText: hintText,
           border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(
-              Radius.circular(50),
+              Radius.circular(15),
             ),
           ),
         ),
